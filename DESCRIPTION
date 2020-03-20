@@ -19,8 +19,6 @@ Imports:
     purrr (>= 0.3.3),
     scales (>= 1.1.0),
     ggplot2 (>= 3.2),
-    trelliscopejs (>= 0.2.4),
     plotly (>= 4.9.2),
     rmarkdown (>= 2.1),
-    rbokeh (>= 0.5.0)
 RoxygenNote: 7.1.0
