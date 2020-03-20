@@ -16,9 +16,9 @@
 #'
 #' @examples
 #' bericht()
-#' bericht(continent = "Europe", Land1 = "Iceland")
-#' bericht(output)
-#' bericht(continent = "Europe", min_year = 1982, max_year = 2007, Land1 = "Iceland", Land2 = "Turkey")
+#' bericht(continent = "Europe", Land1 = "Iceland", Land2 = "Turkey")
+#' bericht(continent = "Europe", min_year = 1982, max_year = 2007,
+#'  Land1 = "Iceland", Land2 = "Turkey", Dateiname = "Europa.html")
 
 bericht <- function(continent = "all", min_year = 1952, max_year = 2007, Land1 = "Germany", Land2 = "Turkey",
                     Dateiname = "Gapminder-Bericht.html") {
