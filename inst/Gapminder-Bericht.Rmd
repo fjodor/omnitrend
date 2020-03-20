@@ -133,3 +133,34 @@ ggplotly(p, tooltip = c("x", "y", "colour"))
 
 ```
 
+# Erweiterte Analysen: delta lifeExp und R²
+
+Tabellarisch, zum Sortieren: Zwei neue Variablen.
+
+Wenige Codezeilen genügen, um für beliebig viele Länder separate Regressionsmodelle zu erstellen.
+
+```{r}
+
+gapminder2 <- gapminder %>% 
+  group_by(country) %>% 
+  mutate(delta_lifeExp = round(max(lifeExp) - min(lifeExp), 2)) %>% 
+  ungroup()
+
+# R²
+
+getrsq <- function(data) {
+  model <- lm(lifeExp ~ year, data = data)
+  summary(model)$r.squared
+}
+
+gapminder2 <- gapminder2 %>% 
+  group_by(country) %>% 
+  nest() %>% 
+  mutate(rsq = round(map_dbl(data, getrsq), 3)) %>% 
+  unnest(cols = data) %>% 
+  ungroup()
+
+datatable(gapminder2)
+
+```
+
