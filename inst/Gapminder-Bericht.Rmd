@@ -1,0 +1,135 @@
+---
+title: "Bericht: Gapminder - Kontinent: `r params$continent`"
+author: "omnitrend"
+date: "Bericht erstellt: `r Sys.time()`"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    code_folding: hide
+    code_download: true
+    self-contained: true
+    includes:
+      after_body: footer.html
+params:
+  continent: 
+    label: "Kontinent?"
+    value: all
+    input: select
+    choices: [all, Africa, Americas, Asia, Europe, Oceania]
+  min_year:
+    label: "Von welchem Jahr ab?"
+    value: 1952
+    min: 1952
+    max: 2007
+    step: 5
+  max_year:
+    label: "Bis zu welchem Jahr?"
+    value: 2007
+    min: 1952
+    max: 2007
+    step: 5
+  Land1:
+    label: "Ländervergleich: Land 1"
+    value: Germany
+    input: text
+  Land2:
+    label: "Ländervergleich: Land 2"
+    value: Turkey
+    input: text
+---
+
+```{r setup, echo = FALSE, message = FALSE}
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(purrr)
+library(gapminder)
+library(skimr)
+library(DT)
+library(gghighlight)
+library(plotly)
+library(ggthemes)
+
+data(gapminder)
+
+if (params$max_year < params$min_year) stop("Bitte eine positive Zeitspanne angeben!")
+
+if(params$continent != "all") {
+  gapminder <- gapminder %>% 
+    filter(continent == params$continent)
+}
+
+gapminder <- gapminder %>% 
+  filter(year >= params$min_year & year <= params$max_year)
+
+```
+
+# Datenbasis
+
+Hier werden die Daten aus dem Gapminder-Projekt erforscht. Sie enthalten `r nrow(gapminder)` Zeilen (= Länderdaten aus verschiedenen Jahren) und `r ncol(gapminder)` Variablen (Spalten).
+
+Hier eine erste Übersicht über den Datensatz:
+
+```{r skim}
+
+skim(gapminder)
+
+```
+
+Hier die Originaldaten zum Stöbern:
+
+```{r datatable}
+
+datatable(gapminder)
+
+```
+
+
+# Lebenserwartung im Zeitverlauf
+
+Vergleich zweier ausgewählter Länder:
+
+## Statisches Diagramm
+
+```{r Ländervergleich, message = FALSE}
+
+gapminder %>% 
+  ggplot(aes(x = year, y = lifeExp, color = country)) +
+  geom_line(size = 1.5) +
+  gghighlight(country %in% c(params$Land1, params$Land2),
+              unhighlighted_params = list(size = .75),
+              use_group_by = FALSE) +
+  labs(title = "Lebenserwartung im Zeitverlauf", subtitle = paste(params$Land1, "im Vergleich mit", params$Land2),
+       caption = "Source: Gapminder project /
+       gapminder R package by Jenny Bryan") +
+  scale_color_discrete(name = "")
+
+```
+
+## Interaktives Diagramm mit plotly
+
+```{r}
+
+p <- gapminder %>% 
+  ggplot(aes(x = year, y = lifeExp, color = country)) +
+  geom_line(size = 0.4) +
+  labs(title = "Lebenserwartung im Zeitverlauf") +
+  theme_bw() +
+  theme(legend.position = "none")
+
+ggplotly(p, tooltip = c("x", "y", "colour"))
+
+p <- gapminder %>% 
+  ggplot(aes(x = year, y = lifeExp, color = country)) +
+  geom_line(size = 0.4) +
+  labs(title = "Lebenserwartung im Zeitverlauf") +
+  theme_economist() +
+  theme(legend.position = "none")
+
+ggplotly(p, tooltip = c("x", "y", "colour"))
+
+
+```
+

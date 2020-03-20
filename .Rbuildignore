@@ -1,0 +1,6 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^Gapminder-Report\.html$
+^Gapminder-Bericht\.html$
+^rmarkdown_files$
+^README\.Rmd$

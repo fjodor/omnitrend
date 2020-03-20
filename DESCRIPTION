@@ -1,0 +1,26 @@
+Package: omnitrend
+Type: Package
+Title: omnitrend-Berichte erstellen
+Version: 0.0.9000
+Author: omnitrend Team
+Maintainer: omnitrend R Guru <RGuru@omnitrend.de>
+Description: Berichte erstellen im omnitrend-Stil. Aktuell nur HTML.
+License: Proprietary - use only within omnitrend! See licence.txt
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    gapminder (>= 0.3.0),
+    skimr (>= 2.1),
+    magrittr,
+    DT (>= 0.12),
+    gghighlight (>= 0.2.0),
+    tidyr (>= 1.0.2),
+    dplyr (>= 0.8.5),
+    purrr (>= 0.3.3),
+    scales (>= 1.1.0),
+    ggplot2 (>= 3.2),
+    trelliscopejs (>= 0.2.4),
+    plotly (>= 4.9.2),
+    rmarkdown (>= 2.1),
+    rbokeh (>= 0.5.0)
+RoxygenNote: 7.1.0
