@@ -11,7 +11,7 @@
 #' @param Land2 Zweites Land für die Grafik mit dem Ländervergleich
 #' @param Dateiname Dateiname als Text, z. B. "Gapminder-Bericht.html" (mit Anführungszeichen; Dateiendung: .html)
 #'
-#' @return Bericht im Word-Format
+#' @return Bericht im HTML-Format
 #' @export
 #'
 #' @examples

@@ -27,7 +27,7 @@ bericht(
 \item{Dateiname}{Dateiname als Text, z. B. "Gapminder-Bericht.html" (mit Anführungszeichen; Dateiendung: .html)}
 }
 \value{
-Bericht im Word-Format
+Bericht im HTML-Format
 }
 \description{
 Berichte erstellen im HTML-Format.
